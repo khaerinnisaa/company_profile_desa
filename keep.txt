@@ -1,0 +1,14 @@
+beranda✅
+struktur desa✅
+profil desa: api(informasi desa)
+berita✅
+listing✅
+potensi✅
+produk desa✅
+penduduk✅
+bantuan sosail: api
+sarana dan prasarana✅
+apb desa : api(),ui(accordion)
+rumah ibadah✅
+wisata✅
+idm: api

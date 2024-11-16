@@ -1,0 +1,15 @@
+/* @media (min-width: 380px) and (max-width: 430px) {
+  .logo {
+    height: 150px !important;
+  }
+}
+@media (min-width: 431px) and (max-width: 479px) {
+  .logo {
+    height: 170px !important;
+  }
+}
+@media (min-width: 480px) and (max-width: 899px) {
+  .logo {
+    height: 190px !important;
+  }
+} */

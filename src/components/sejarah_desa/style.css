@@ -1,0 +1,9 @@
+@media (min-width: 900px) and (max-width: 1140px) {
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .imageMobile {
+    width: 50% !important;
+  }
+}
+@media (min-width: 490px) and (max-width: 599px) {
+}

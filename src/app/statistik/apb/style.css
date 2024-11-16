@@ -1,0 +1,38 @@
+.css-132pz3d-MuiChartsAxis-root-MuiChartsXAxis-root .MuiChartsAxis-label {
+  fill: white !important;
+  font-family: "Poppins" !important;
+}
+
+.css-10d7jww-MuiChartsAxis-root-MuiChartsYAxis-root .MuiChartsAxis-tickLabel {
+  font-family: "Poppins" !important;
+  fill: white !important;
+  color: white !important;
+}
+
+.css-132pz3d-MuiChartsAxis-root-MuiChartsXAxis-root .MuiChartsAxis-tickLabel {
+  fill: white !important;
+  font-family: "Poppins" !important;
+}
+
+.css-1nrt2yx-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: #fff !important;
+}
+
+.css-1w0hyay-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: #0d4581 !important;
+}
+
+.css-y3e4pi-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: #0d4581 !important;
+  color: #fff !important
+}
+
+/* padding tabel accordion */
+.css-15v22id-MuiAccordionDetails-root {
+  padding: 0 !important;
+}
+
+.css-10d7jww-MuiChartsAxis-root-MuiChartsYAxis-root {
+  padding: 100px !important;
+  background-color: red !important;
+}

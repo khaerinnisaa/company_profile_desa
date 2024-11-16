@@ -1,0 +1,13 @@
+/* .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left,
+.apexcharts-legend.apx-legend-position-top.apexcharts-align-left,
+.apexcharts-legend.apx-legend-position-right,
+.apexcharts-legend.apx-legend-position-left {
+  justify-content: flex-start;
+  display: none;
+}
+
+.apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center,
+.apexcharts-legend.apx-legend-position-top.apexcharts-align-center {
+  justify-content: center;
+  display: none;
+} */

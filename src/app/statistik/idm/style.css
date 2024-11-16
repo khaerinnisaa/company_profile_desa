@@ -1,0 +1,31 @@
+.css-132pz3d-MuiChartsAxis-root-MuiChartsXAxis-root .MuiChartsAxis-label {
+  fill: white !important;
+  font-family: "Poppins" !important;
+}
+
+.css-10d7jww-MuiChartsAxis-root-MuiChartsYAxis-root .MuiChartsAxis-tickLabel {
+  font-family: "Poppins" !important;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  fill: white !important;
+  color: white !important;
+}
+
+.css-132pz3d-MuiChartsAxis-root-MuiChartsXAxis-root .MuiChartsAxis-tickLabel {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  fill: white !important;
+  font-family: "Poppins" !important;
+}
+
+/* th pusat dll */
+/* @media (min-width: 900px) and (max-width: 1078px) {
+  .th {
+    top: 100 !important;
+    background-color: red !important;
+  }
+} */

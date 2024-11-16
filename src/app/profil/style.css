@@ -1,0 +1,7 @@
+@media (max-width: 900px) {
+    /* Hide on mobile */
+    .maps {
+      width: 90% !important;
+    }
+  }
+  

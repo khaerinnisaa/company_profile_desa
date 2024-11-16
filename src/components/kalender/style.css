@@ -1,0 +1,77 @@
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.rdp-root button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  /* color: black !important; */
+}
+
+/* button prev next tiap bulan */
+.rdp-nav {
+  display: none !important;
+}
+/* title bulan
+.rdp-caption_label {
+  display: none !important;
+} */
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  /* min-height: auto !important; */
+  position: relative;
+
+  height: -30px !important;
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  min-height: 0em !important;
+  position: relative;
+}
+
+.fc .fc-daygrid-body-natural .fc-daygrid-day-events {
+  margin-bottom: 0em !important;
+}
+
+.fc .fc-daygrid-day-number {
+  /* padding: 5px; */
+  position: relative;
+  z-index: 4;
+  /* text-align: center; */
+  /* align-self: center; */
+  /* align-items: center; */
+  /* align-content: center; */
+  margin: auto !important;
+}
+
+th {
+  font-weight: 400 !important;
+  font-family: Poppins !important;
+  min-width: 100px !important;
+  /* border: none !important; */
+}
+.fc table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  font-size: 1em;
+  font-family: Poppins !important;
+}
+table {
+  /* border: none !important; */
+}
+
+tbody{
+  /* background-color: blue; */
+  /* height: 5px !important; */
+  text-align: center !important;
+  align-items: center !important;
+}

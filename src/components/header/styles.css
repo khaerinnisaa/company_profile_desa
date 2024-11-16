@@ -1,0 +1,6 @@
+@media (max-width: 900px) {
+  /* Hide on mobile */
+  .icon {
+    width: 100% !important;
+  }
+}
