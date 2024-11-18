@@ -15,8 +15,9 @@ import BantuanSosial from "./app/statistik/bantuan_sosial/Page";
 import Sarana from "./app/statistik/sarana_dan_prasarana/Page";
 import Apb from "./app/statistik/apb/Page";
 import RumahIbadah from "./app/statistik/rumah_ibadah/Page";
-import Wisata from "./app/statistik/wisata/Page"
-import Idm from "./app/statistik/idm/Page"
+import Wisata from "./app/statistik/wisata/Page";
+import Idm from "./app/statistik/idm/Page";
+import Tes from "./components/dropdown/Dropdown";
 // import Struktur from "./app/struktur/Page";
 // import "./App.css";
 
@@ -43,7 +44,7 @@ function App() {
         <Route path="/statistik/rumah_ibadah" element={<RumahIbadah />} />
         <Route path="/statistik/wisata" element={<Wisata />} />
         <Route path="/statistik/idm" element={<Idm />} />
-        <Route path="/tes" element={<p>tes</p>} />
+        <Route path="/tes" element={<Tes />} />
       </Routes>
     </BrowserRouter>
   );

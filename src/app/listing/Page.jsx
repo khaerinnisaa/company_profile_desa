@@ -4,6 +4,7 @@ import {
   Box,
   Container,
   FormControl,
+  InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
@@ -24,20 +25,10 @@ import {
   TileLayer,
 } from "react-leaflet";
 import Footer from "../../components/footer/Footer";
-import Maps from "../../assets/maps.png";
 import "./style.css";
 import ListingLogic from "./ListingLogic";
-
-// Custom Icon untuk Marker
-const customIcon = new L.Icon({
-  iconUrl: Maps, // Anda bisa menggunakan URL ikon khusus
-  iconSize: [37, 39],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  shadowSize: [41, 41],
-});
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function Page() {
   const { value, func } = ListingLogic();
@@ -55,6 +46,12 @@ export default function Page() {
     },
     // Tambahkan lokasi lain di sini
   ];
+
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   // if (value.loading === true)
   //   return (
@@ -86,7 +83,6 @@ export default function Page() {
             <Title>Peta Desa</Title>
             <MapContainer
               center={value.position}
-              // center={positions[0].coords}
               zoom={13}
               style={{
                 height: "591px",
@@ -95,48 +91,85 @@ export default function Page() {
                 borderRadius: "10px",
               }}
             >
-              <Stack sx={{ position: "relative", zIndex: 1000 }}>
-                <FormControl sx={{ px: 4, maxWidth: "240px" }}>
-                  {value.category && (
-                    <Stack>
-                      <Select
-                        sx={{
-                          height: 40,
-                          // width: { xs: "100px", md: "170px" },
-                          fontFamily: "Poppins",
-                          borderRadius: "5px",
-                          mt: 2,
-                          fontWeight: 500,
-                          boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
-                          backgroundColor: "white",
+              {value.category && (
+                <Stack sx={{ position: "relative", zIndex: 1000 }}>
+                  {/* <Stack sx={{ px: 4, width: "auto" }}> */}
+                  {/* Dropdown Button */}
+                  <button
+                    onClick={func.handleDropdownClick}
+                    style={{
+                      backgroundColor: "#fff",
+                      color: "#000",
+                      padding: "10px 15px",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                      alignItems: "center",
+                      width: "fit-content",
+                      minWidth: "150px",
+                      margin: "20px",
+                      maxHeight: "45px",
+                    }}
+                  >
+                    <Poppins sx={{ display: "flex", justifyContent: "center" }}>
+                      {value.selectedCategory || "Pilih Kategori"}
+                      <p
+                        style={{
+                          marginLeft: "5px",
+                          marginRight: "-5px",
                         }}
-                        onChange={func.handleCategory}
-                        displayEmpty
-                        value={value.selectedCategory}
-                        input={<OutlinedInput />}
-                        renderValue={(selected) => {
-                          if (selected === undefined) {
-                            return <em>Pilih Tahun</em>;
-                          }
-                          return selected;
-                        }}
-                        MenuProps={value.MenuProps}
-                        inputProps={{ "aria-label": "Without label" }}
                       >
-                        {value.category.map((res) => (
-                          <MenuItem
-                            key={res.id}
-                            sx={{ fontFamily: "Poppins" }}
-                            value={res.id}
-                          >
-                            {res.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </Stack>
+                        {value.dropdown === true ? (
+                          <ArrowDropUpIcon />
+                        ) : (
+                          <ArrowDropDownIcon />
+                        )}
+                      </p>
+                    </Poppins>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {value.dropdown && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        backgroundColor: "#fff",
+                        boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+                        zIndex: 1,
+                        marginTop: "70px",
+                        marginLeft: "20px",
+                        borderRadius: "5px",
+                        minWidth: "150px",
+                      }}
+                    >
+                      {value.category.map((res) => (
+                        <Poppins
+                          key={res.id}
+                          onClick={() => func.handleOptionClick(res.id)}
+                          style={{
+                            padding: "10px 15px",
+                            cursor: "pointer",
+                            color: "#000",
+                            backgroundColor:
+                              value.selectedCategory === res.name
+                                ? "#f0f0f0"
+                                : "#fff",
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.target.style.backgroundColor = "#f0f0f0")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.target.style.backgroundColor = "#fff")
+                          }
+                        >
+                          {res.name}
+                        </Poppins>
+                      ))}
+                    </div>
                   )}
-                </FormControl>
-              </Stack>
+                </Stack>
+                // </Stack>
+              )}
 
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -147,10 +180,10 @@ export default function Page() {
                   <Marker
                     key={idx}
                     position={[res.latitude, res.longitude]}
-                    icon={customIcon}
+                    icon={value.customIcon}
                   >
                     <Popup>
-                      <Stack spacing={"3px"} sx={{}}>
+                      <Stack spacing={"3px"}>
                         <Poppins sx={{ color: "#0D4581", fontWeight: 600 }}>
                           {res.name}
                         </Poppins>

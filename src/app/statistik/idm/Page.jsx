@@ -18,7 +18,7 @@ import React from "react";
 import Icon from "../../../assets/icon_header_idm.png";
 import { Poppins } from "../../../components/typography/Poppins";
 import Footer from "../../../components/footer/Footer";
-import { idm, iks } from "../../../values/Constant";
+import { idm, iks, statusIdm } from "../../../values/Constant";
 import {
   StyledTableCell,
   StyledTableRow,
@@ -44,54 +44,36 @@ export default function Page() {
       <Container maxWidth="lg">
         {/* status & skor idm */}
         <Grid2 container spacing={2} sx={{ mt: 8 }}>
-          {/* status */}
-          <Grid2 size={{ xs: 12, md: 6 }}>
-            <Card
-              sx={{
-                width: { xs: "100%" },
-                display: "flex",
-                px: 3,
-                borderRadius: "10px",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
-              }}
-            >
-              <img
-                style={{ width: "90px", height: "90px" }}
-                // src={Status.src}
-                alt="status"
-              />
-              <Stack sx={{ alignSelf: "center" }}>
-                <Poppins>Status Idm 2023</Poppins>
-                <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
-                  Maju
-                </Poppins>
-              </Stack>
-            </Card>
-          </Grid2>
-          {/* skor */}
-          <Grid2 size={{ xs: 12, md: 6 }}>
-            <Card
-              sx={{
-                width: { xs: "100%" },
-                display: "flex",
-                px: 3,
-                borderRadius: "10px",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
-              }}
-            >
-              <img
-                style={{ width: "90px", height: "90px" }}
-                // src={Skor.src}
-                alt="status"
-              />
-              <Stack sx={{ alignSelf: "center" }}>
-                <Poppins>Skor Idm 2023</Poppins>
-                <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
-                  Maju
-                </Poppins>
-              </Stack>
-            </Card>
-          </Grid2>
+          {statusIdm.map((res) => {
+            return (
+              <Grid2 size={{ xs: 12, md: 6 }} key={res.id}>
+                <Card
+                  sx={{
+                    width: { xs: "100%" },
+                    display: "flex",
+                    px: 4,
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
+                  }}
+                >
+                  <img
+                    style={{
+                      width: "90px",
+                      height: "90px",
+                    }}
+                    src={res.image}
+                    alt="status"
+                  />
+                  <Stack sx={{ alignSelf: "center" }}>
+                    <Poppins>{res.title}</Poppins>
+                    <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
+                      {res.ket}
+                    </Poppins>
+                  </Stack>
+                </Card>
+              </Grid2>
+            );
+          })}
         </Grid2>
         {/* Informasi IDM */}
         <Stack sx={{ mt: 6 }}>

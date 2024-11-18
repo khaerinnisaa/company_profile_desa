@@ -63,6 +63,7 @@
 // import Bg4 from "@/assets/tes/bg4.jpg";
 // import Bg5 from "@/assets/tes/bg5.jpg";
 // import Bg6 from "@/assets/tes/bg6.jpeg";
+import Icon from "../assets/maps.png";
 
 export const NavbarMenu = [
   {
@@ -166,42 +167,42 @@ export const statistik = [
 export const informasiDesa = [
   {
     id: 1,
-    // image: Jumlah,
+    image: Icon,
     title: "Jumlah Penduduk",
     total: 1.14,
     ket: "Jiwa",
   },
   {
     id: 2,
-    // image: Bantuan,
+    image: Icon,
     title: "Bantuan Sosial",
     total: 210,
     ket: "",
   },
   {
     id: 3,
-    // image: Sarana,
+    image: Icon,
     title: "Sarana dan Prasarana",
     total: 740,
     ket: "",
   },
   {
     id: 4,
-    // image: Apb,
+    image: Icon,
     title: "Apb Desa",
     total: 7.23,
     ket: "Milyar",
   },
   {
     id: 5,
-    // image: Ibadah,
+    image: Icon,
     title: "Rumah Ibadah",
     total: 210,
     ket: "",
   },
   {
     id: 6,
-    // image: wisata,
+    image: Icon,
     title: "Wisata",
     total: 740,
     ket: "",
@@ -511,66 +512,66 @@ export const bantuanSosial = [
     title: "Program Keluarga Harapan (PKH)",
     total: 440,
     ket: "jiwa",
-    // image: Pkh,
+    image: Icon,
   },
   {
     id: 2,
     title: "Bantuan Pangan non-tunai (BPNT)",
     total: 440,
     ket: "jiwa",
-    // image: Bpnt,
+    image: Icon,
   },
   {
     id: 3,
     title: "Bantuan Sosial Tunai (BST)",
     total: 440,
     ket: "jiwa",
-    // image: Bst,
+    image: Icon,
   },
   {
     id: 4,
     title: "Bantuan Langsung Tunai Dana Desa ",
     total: 440,
     ket: "jiwa",
-    // image: Tunai,
+    image: Icon,
   },
   {
     id: 5,
     title: "Bantuan Subsidi Upah (BSU)",
     total: 440,
     ket: "jiwa",
-    // image: Bsu,
+    image: Icon,
   },
   {
     id: 6,
     title: "Kartu Indonesia Pintar (KIP)",
     total: 440,
     ket: "jiwa",
-    // image: Kip,
+    image: Icon,
   },
   {
     id: 7,
     title: "Kartu Indonesia Sehat (KIS)",
     total: 440,
     ket: "jiwa",
-    // image: Kis,
+    image: Icon,
   },
   {
     id: 8,
     title: "Program Indonesia Pintar (PIP)",
     total: 440,
     ket: "jiwa",
-    // image: Pip,
+    image: Icon,
   },
 ];
 
 export const idm = [
-  { id: 1, title: "Target Status", total: "Mandiri" },
-  { id: 2, title: "Skor Minimal", total: "1200" },
-  { id: 3, title: "Penambahan", total: "123" },
-  { id: 4, title: "Skor IKS", total: "1376" },
-  { id: 5, title: "Skor IKE", total: "1368" },
-  { id: 6, title: "Skor IKL", total: "1380" },
+  { id: 1, image: Icon, title: "Target Status", total: "Mandiri" },
+  { id: 2, image: Icon, title: "Skor Minimal", total: "1200" },
+  { id: 3, image: Icon, title: "Penambahan", total: "123" },
+  { id: 4, image: Icon, title: "Skor IKS", total: "1376" },
+  { id: 5, image: Icon, title: "Skor IKE", total: "1368" },
+  { id: 6, image: Icon, title: "Skor IKL", total: "1380" },
 ];
 
 export const iks = [
@@ -789,14 +790,14 @@ export const iks = [
 export const informasiApb = [
   {
     id: 1,
-    // image: Pendapatan,
+    image: Icon,
     title: "Pendapatan Desa",
     total: "2.234.000.000",
   },
-  { id: 2, title: "Belanja Desa", total: "1.122.000.000" },
+  { id: 2, image: Icon, title: "Belanja Desa", total: "1.122.000.000" },
   {
     id: 3,
-    // image: Pembiayaan,
+    image: Icon,
     title: "Pembiayaan Desa",
     total: "2.990.000.000",
   },
@@ -979,3 +980,8 @@ export const pembiayaanApb = [
 //     ket: "jiwa",
 //   },
 // ];
+
+export const statusIdm = [
+  { id: 1, image: Icon, title: "Status Idm 2023", ket: "Maju" },
+  { id: 2, image: Icon, title: "Skor Idm 2023", ket: "Maju" },
+];

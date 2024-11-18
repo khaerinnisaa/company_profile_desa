@@ -94,8 +94,9 @@ function Navbar() {
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <img
                 src={Logo}
-                style={{ width: "103px", height: "50px" }}
+                style={{ width: "103px", height: "50px", cursor: "pointer" }}
                 alt="Picture of the author"
+                onClick={() => router("/")}
               />
             </Box>
 
@@ -224,6 +225,7 @@ function Navbar() {
                 src={Logo}
                 style={{ width: "50px", height: "50px" }}
                 alt="Picture of the author"
+                onClick={() => router("/")}
               />
             </div>
             <div>
