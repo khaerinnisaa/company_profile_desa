@@ -22,13 +22,43 @@ import JumlahPenduduk from "../../../components/penduduk/jumlah_penduduk/JumlahP
 import Kematian from "../../../components/penduduk/kematian/Kematian";
 import JenisKelamin from "../../../components/penduduk/jenis_kelamin/JenisKelamin";
 import Pendidikan from "../../../components/penduduk/pendidikan/Pendidikan";
-import { StyledTableCell, StyledTableRow } from "../../../components/tabel/Tabel";
+import {
+  StyledTableCell,
+  StyledTableRow,
+} from "../../../components/tabel/Tabel";
 import PendudukLogic from "./PendudukLogic";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
   const { value, func } = PendudukLogic();
+  const { desa } = useAppContext();
   return (
-    <>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Penduduk | {desa}</title>
+        <meta
+          name="description"
+          content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia. Statistik ini memberikan gambaran menyeluruh tentang kondisi demografis, sosial, dan ekonomi desa, yang berguna untuk perencanaan pembangunan dan pengambilan keputusan."
+        />
+        <meta name="keywords" content="penduduk desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta
+          property="og:title"
+          content="Statistik Penduduk Desa Biringkanaya"
+        />
+        <meta
+          property="og:description"
+          content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia. Statistik ini memberikan gambaran menyeluruh tentang kondisi demografis, sosial, dan ekonomi desa, yang berguna untuk perencanaan pembangunan dan pengambilan keputusan."
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta
+          property="og:url"
+          content="https://godesaku.id/statistik/penduduk"
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* header */}
@@ -138,14 +168,16 @@ export default function Page() {
               </TableHead>
               <TableBody>
                 {value.pekerjaan &&
-                  value.pekerjaan.map((row) => (
-                    <StyledTableRow key={row.id}>
-                      <StyledTableCell component="th" scope="row">
-                        {row.title}
-                      </StyledTableCell>
-                      <StyledTableCell>{row.total} Orang</StyledTableCell>
-                    </StyledTableRow>
-                  ))}
+                  value.pekerjaan.map((row) => {
+                    return (
+                      <StyledTableRow key={row.id}>
+                        <StyledTableCell component="th" scope="row">
+                          {row.title}
+                        </StyledTableCell>
+                        <StyledTableCell>{row.total} Orang</StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
@@ -276,6 +308,7 @@ export default function Page() {
           <Grid2 container spacing={2} mt={2}>
             {value.kewarganegaraan &&
               value.kewarganegaraan.map((res) => {
+                
                 return (
                   <Grid2
                     key={res.id}
@@ -331,6 +364,6 @@ export default function Page() {
       </Container>
       {/* Footer */}
       <Footer />
-    </>
+    </HelmetProvider>
   );
 }

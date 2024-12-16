@@ -29,41 +29,28 @@ import "./style.css";
 import ListingLogic from "./ListingLogic";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useAppContext } from "../../contexts/AppContext";
 
 export default function Page() {
   const { value, func } = ListingLogic();
-
-  const positions = [
-    {
-      coords: [-5.20196, 119.49466],
-      popup: "Perumahan Mutiara Indah",
-      location: "Kecamatan Tamalate,kab. Gowa",
-    },
-    {
-      coords: [-5.148760412626431, 119.45385840163603],
-      popup: "Lokasi Kedua",
-      location: "Kecamatan Tamalate,kab. Gowa",
-    },
-    // Tambahkan lokasi lain di sini
-  ];
-
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  // if (value.loading === true)
-  //   return (
-  //     <Stack sx={{ alignItems: "center", height: "100vh" }}>
-  //       <CircularProgress
-  //         sx={{ margin: "auto", color: "#23176D" }}
-  //         size={"50px"}
-  //       />
-  //     </Stack>
-  //   );
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      <Helmet>
+        <title>Listing | {desa}</title>
+        <meta
+          name="description"
+          content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia. "
+        />
+        <meta name="keywords" content="listing desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Listing Desa Biringkanaya" />
+        <meta property="og:description" content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia. " />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta property="og:url" content="https://godesaku.id/listing" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* header */}
@@ -113,18 +100,12 @@ export default function Page() {
                   >
                     <Poppins sx={{ display: "flex", justifyContent: "center" }}>
                       {value.selectedCategory || "Pilih Kategori"}
-                      <p
-                        style={{
-                          marginLeft: "5px",
-                          marginRight: "-5px",
-                        }}
-                      >
-                        {value.dropdown === true ? (
-                          <ArrowDropUpIcon />
-                        ) : (
-                          <ArrowDropDownIcon />
-                        )}
-                      </p>
+
+                      {value.dropdown === true ? (
+                        <ArrowDropUpIcon />
+                      ) : (
+                        <ArrowDropDownIcon />
+                      )}
                     </Poppins>
                   </button>
 
@@ -200,6 +181,6 @@ export default function Page() {
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

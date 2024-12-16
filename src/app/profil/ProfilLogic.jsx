@@ -6,9 +6,11 @@ export default function ProfilLogic() {
   const [visiMisi, setVisiMisi] = useState([]);
   const [sejarah, setSejarah] = useState([]);
   const [peta, setPeta] = useState([]);
+  const [informasi, setInformasi] = useState([]);
 
   useEffect(() => {
     getData();
+    getInformasi();
     getVisiMisi();
     getSejarah();
     getPeta();
@@ -20,6 +22,19 @@ export default function ProfilLogic() {
       fetchDataPublic(`/public/home/general-information`).then((res) => {
         setData(res.data);
       });
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+  // get data informasi desa
+  const getInformasi = async () => {
+    try {
+      fetchDataPublic(`/public/home/village-information-and-idm`).then(
+        (res) => {
+          setInformasi(res.data);
+        }
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -63,7 +78,7 @@ export default function ProfilLogic() {
   };
 
   return {
-    value: { data, visiMisi, sejarah, peta },
+    value: { data, visiMisi, sejarah, peta, informasi },
     func: {},
   };
 }

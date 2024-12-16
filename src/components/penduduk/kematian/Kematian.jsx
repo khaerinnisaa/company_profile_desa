@@ -8,7 +8,7 @@ import PendudukLogic from "../../../app/statistik/penduduk/PendudukLogic";
 
 export default function Kematian() {
   const { value } = PendudukLogic();
-  
+
   // const data = [
   //   {
   //     id: 1,
@@ -150,7 +150,7 @@ export default function Kematian() {
 
   const series = value.kematian.map((res) => {
     return {
-      //   id: res.id,
+      // id: res.id,
       name: res.year,
       data: res.total,
       //   colors: ["purple", "blue", "green", "yellow"],
@@ -166,7 +166,12 @@ export default function Kematian() {
         borderTopLeftRadius: "10px",
       }}
     >
-      <ReactApexChart options={options} series={series} type="bar" height={300} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="bar"
+        height={300}
+      />
     </Box>
   );
 }

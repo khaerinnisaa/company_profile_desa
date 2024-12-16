@@ -14,12 +14,32 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Poppins } from "../../components/typography/Poppins";
 import "./style.css";
 import ProfilLogic from "./ProfilLogic";
+import { useAppContext } from "../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
-  const position = [-5.2103611, 119.5070556];
   const { value, func } = ProfilLogic();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Profil | {desa}</title>
+        <meta name="description" content="Manfaat informasi desa adalah sebagai alat untuk meningkatkan transparansi dan partisipasi masyarakat dalam pembangunan desa. Informasi ini membantu warga untuk lebih memahami program dan kebijakan pemerintah desa, sehingga mereka dapat terlibat aktif dalam pengambilan keputusan." />
+        <meta name="keywords" content="profil desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Profil Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Manfaat informasi desa adalah sebagai alat untuk meningkatkan transparansi dan partisipasi masyarakat dalam pembangunan desa. Informasi ini membantu warga untuk lebih memahami program dan kebijakan pemerintah desa, sehingga mereka dapat terlibat aktif dalam pengambilan keputusan."
+        />
+        <meta
+          property="og:image"
+          content="https://godesaku.id/logo.png"
+        />
+        <meta property="og:url" content="https://godesaku.id/profil" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* profil desa */}
@@ -129,6 +149,6 @@ export default function Page() {
       </Stack>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

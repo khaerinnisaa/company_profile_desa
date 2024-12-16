@@ -31,9 +31,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { fetchDataPublic } from "../../../service/api";
 import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function WisataPage({}) {
-  const { setLoadingRoute, limitText } = useAppContext();
+  const { setLoadingRoute, limitText, desa } = useAppContext();
   const router = useNavigate();
   const { slug } = useParams();
   const [tour, setTour] = useState(null);
@@ -100,10 +101,23 @@ export default function WisataPage({}) {
     );
   if (error) return <p>Error: {error}</p>;
 
-  console.log({ tour });
-
   return (
-    <>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Potensi | {desa}</title>
+        <meta name="description" content={tour?.title} />
+        <meta name="keywords" content={tour?.content} />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content={tour?.title} />
+        <meta property="og:description" content={tour?.content} />
+        <meta property="og:image" content={tour?.assets[0]} />
+        <meta
+          property="og:url"
+          content={`https://godesaku.id/potensi/${tour?.slug}`}
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container maxWidth="lg">
@@ -128,7 +142,7 @@ export default function WisataPage({}) {
                 className="mySwiper"
               >
                 {tour.assets &&
-                  tour.assets.map((res,i) => {
+                  tour.assets.map((res, i) => {
                     return (
                       <SwiperSlide key={i} style={{}}>
                         {res.type === "image" ? (
@@ -279,6 +293,6 @@ export default function WisataPage({}) {
         </Stack>
       </Container>
       <Footer mt={{ xs: 4, md: 10 }} />
-    </>
+    </HelmetProvider>
   );
 }

@@ -17,9 +17,10 @@ import { ButtonStyle } from "../../../components/button/ButtonStyle";
 import { Title } from "../../../components/typography/Title";
 import { useAppContext } from "../../../contexts/AppContext";
 import { fetchDataPublic } from "../../../service/api";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function BeritaPage({}) {
-  const { setLoadingRoute } = useAppContext();
+  const { setLoadingRoute,desa } = useAppContext();
   const router = useNavigate();
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
@@ -100,7 +101,22 @@ export default function BeritaPage({}) {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
+    <HelmetProvider>
+      {/* metadata */}
+       <Helmet>
+        <title>Produk | {desa}</title>
+        <meta name="description" content={product?.nama} />
+        <meta name="keywords" content={product?.deskripsi} />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content={product?.nama} />
+        <meta property="og:description" content={product?.deskripsi} />
+        <meta property="og:image" content={product?.gambar} />
+        <meta
+          property="og:url"
+          content={`https://godesaku.id/produk/${product?.slug}`}
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container maxWidth="lg">
@@ -265,6 +281,6 @@ export default function BeritaPage({}) {
         </Stack>
       </Container>
       <Footer mt={{ xs: 4, md: 10 }} />
-    </>
+    </HelmetProvider>
   );
 }

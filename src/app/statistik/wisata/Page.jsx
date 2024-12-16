@@ -27,12 +27,32 @@ import Footer from "../../../components/footer/Footer";
 import "./style.css";
 import WisataLogic from "./WisataLogic";
 import { Title } from "../../../components/typography/Title";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
   const { value, func } = WisataLogic();
-
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Wisata | {desa}</title>
+        <meta name="description" content="Informasi Wisata Desa Biringkanaya" />
+        <meta name="keywords" content="wisata desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Wisata Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Informasi Wisata Desa Biringkanaya"
+        />
+        <meta
+          property="og:image"
+          content="https://godesaku.id/logo.png"
+        />
+        <meta property="og:url" content="https://godesaku.id/statistik/wisata" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* Informasi Wisata */}
@@ -141,6 +161,6 @@ export default function Page() {
       </Container>
       {/* Footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

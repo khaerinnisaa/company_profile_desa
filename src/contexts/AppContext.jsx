@@ -5,6 +5,7 @@ const AppProvider = createContext();
 export const useAppContext = () => useContext(AppProvider);
 
 export default function AppContext({ children }) {
+  const desa = "Desa Biringkanaya";
   const [loadingRoute, setLoadingRoute] = useState(false);
 
   const limitText = (html, maxLength) => {
@@ -59,7 +60,9 @@ export default function AppContext({ children }) {
   };
 
   return (
-    <AppProvider.Provider value={{ loadingRoute, setLoadingRoute, limitText }}>
+    <AppProvider.Provider
+      value={{ loadingRoute, setLoadingRoute, limitText, desa }}
+    >
       {children}
     </AppProvider.Provider>
   );

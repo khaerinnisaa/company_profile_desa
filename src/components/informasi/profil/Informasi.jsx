@@ -1,17 +1,17 @@
 import { Box, Card, Container, Grid2, Stack } from "@mui/material";
 import React from "react";
 import { Poppins } from "../../typography/Poppins";
-import { informasiDesa } from "../../../values/Constant";
 import { Title } from "../../typography/Title";
+import ProfilLogic from "../../../app/profil/ProfilLogic";
 
 export default function Informasi({ title }) {
-  //   const { value } = BerandaLogic();
+  const { value } = ProfilLogic();
   return (
     <Box sx={{ mt: { xs: 6, md: 12 } }}>
       <Container maxWidth="lg">
         <Title>{title}</Title>
         <Grid2 container spacing={2} mt={4}>
-          {informasiDesa.map((res) => {
+          {value.informasi.map((res) => {
             return (
               <Grid2
                 key={res.id}
@@ -46,7 +46,7 @@ export default function Informasi({ title }) {
                       }}
                     >
                       {res.total}
-                      <span
+                      {/* <span
                         style={{
                           color: "black",
                           fontWeight: 400,
@@ -54,7 +54,7 @@ export default function Informasi({ title }) {
                         }}
                       >
                         {res.ket}
-                      </span>
+                      </span> */}
                     </Poppins>
                   </Stack>
                 </Card>

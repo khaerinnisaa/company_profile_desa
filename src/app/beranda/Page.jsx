@@ -15,17 +15,35 @@ import Icon from "../../assets/icon_header_beranda.png";
 import BerandaLogic from "./BerandaLogic";
 import Footer from "../../components/footer/Footer";
 import { useAppContext } from "../../contexts/AppContext";
-import LoaderImage from "../../components/loaderImage/LoaderImage";
 import Navbar from "../../components/navbar/Navbar";
 import { Poppins } from "../../components/typography/Poppins";
 import Header from "../../components/header/Header";
 import Informasi from "../../components/informasi/beranda/Informasi";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Home() {
-  const { limitText } = useAppContext();
+  const { limitText, desa } = useAppContext();
   const { value, func } = BerandaLogic();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>{desa}</title>
+        <meta
+          name="description"
+          content="Desa Biringkanaya adalah sebuah desa yang terletak di wilayah perbukitan di Kabupaten Maros, Provinsi Sulawesi Selatan. Desa ini berada pada ketinggian sekitar 700 meter di atas permukaan laut, dikelilingi oleh hamparan sawah dan hutan pinus yang subur. Letak geografisnya berada di koordinat 7°20' Lintang Selatan dan 110°30' Bujur Timur."
+        />
+        <meta name="keywords" content="desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Desa Biringkanaya adalah sebuah desa yang terletak di wilayah perbukitan di Kabupaten Maros, Provinsi Sulawesi Selatan. Desa ini berada pada ketinggian sekitar 700 meter di atas permukaan laut, dikelilingi oleh hamparan sawah dan hutan pinus yang subur. Letak geografisnya berada di koordinat 7°20' Lintang Selatan dan 110°30' Bujur Timur."
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta property="og:url" content="https://godesaku.id" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container sx={{ py: { xs: "4%", md: "2%" } }} maxWidth="lg">
@@ -150,6 +168,6 @@ export default function Home() {
       </Stack>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

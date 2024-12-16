@@ -8,15 +8,15 @@ import CircleIcon from "@mui/icons-material/Circle";
 // Dynamically import ApexCharts to avoid SSR issues
 // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function PembiayaanDesa() {
-  const data = [
-    { id: 1, name: "Penerimaan", total: 3422321 },
-    { id: 2, name: "Pengeluaran", total: 356648 },
-  ];
+export default function PembiayaanDesa({category,data}) {
+  // const data = [
+  //   { id: 1, name: "Penerimaan", total: 3422321 },
+  //   { id: 2, name: "Pengeluaran", total: 356648 },
+  // ];
 
-  // Map data to extract categories and series data
-  const pembiayaan = data.map((item) => item.name);
-  const jumlahPembiayaan = data.map((item) => item.total);
+  // // Map data to extract categories and series data
+  // const pembiayaan = data.map((item) => item.name);
+  // const jumlahPembiayaan = data.map((item) => item.total);
 
   const options = {
     chart: {
@@ -47,7 +47,7 @@ export default function PembiayaanDesa() {
       width: 2,
     },
     xaxis: {
-      categories: pembiayaan,
+      categories: category,
       labels: {
         style: {
           colors: "#fff", // Label warna putih
@@ -80,7 +80,7 @@ export default function PembiayaanDesa() {
   const series = [
     {
       name: "Jumlah",
-      data: jumlahPembiayaan, // Data jumlah belanja
+      data: data, // Data jumlah belanja
     },
   ];
 

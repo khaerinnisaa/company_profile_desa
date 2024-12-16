@@ -22,12 +22,31 @@ import { themePagination } from "../../components/pagination/Pagination";
 import Kalender from "../../components/kalender/Kalender";
 import Footer from "../../components/footer/Footer";
 import { useAppContext } from "../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
-  const { limitText } = useAppContext();
+  const { limitText, desa } = useAppContext();
   const { value, func } = BeritaLogic();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Berita | {desa}</title>
+        <meta name="description" content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia." />
+        <meta name="keywords" content="berita desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Berita Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Berita desa biringkanaya"
+        />
+        <meta
+          property="og:image"
+          content="https://godesaku.id/logo.png"
+        />
+        <meta property="og:url" content="https://godesaku.id/berita" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* header */}
@@ -139,6 +158,6 @@ export default function Page() {
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

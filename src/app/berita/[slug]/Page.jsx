@@ -18,9 +18,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useAppContext } from "../../../contexts/AppContext";
 import { fetchDataPublic } from "../../../service/api";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function BeritaPage({}) {
-  const { setLoadingRoute } = useAppContext();
+  const { setLoadingRoute, desa } = useAppContext();
   const router = useNavigate();
   const { slug } = useParams();
   const [news, setNews] = useState(null);
@@ -74,7 +75,22 @@ export default function BeritaPage({}) {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Berita | {desa}</title>
+        <meta name="description" content={news?.title} />
+        <meta name="keywords" content={news?.content} />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content={news?.title} />
+        <meta property="og:description" content={news?.content} />
+        <meta property="og:image" content={news?.images[0]} />
+        <meta
+          property="og:url"
+          content={`https://godesaku.id/berita/${news?.slug}`}
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container maxWidth="lg">
@@ -183,6 +199,6 @@ export default function BeritaPage({}) {
         </Stack>
       </Container>
       <Footer mt={{ xs: 4, md: 10 }} />
-    </>
+    </HelmetProvider>
   );
 }

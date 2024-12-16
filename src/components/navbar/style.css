@@ -1,3 +1,49 @@
+.nav-mobile {
+  position: absolute;
+  background-color: #0d4581;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* margin-top: 395px; */
+  border-radius: 5px;
+  width: 100vw;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* statistik desktop */
+.statistik {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  height: 25px;
+  margin: auto 0;
+}
+
+.statistik:hover {
+  color: #fff300;
+  border-bottom: 2px solid #fff300;
+}
+
+.menuStatistik {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 40px;
+  margin-left: -40px;
+  border-radius: 5px;
+  width: 210px;
+}
+
+/* statistik mobile */
+.statistik-mobile{
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+}
+
 @media (max-width: 900px) {
   .css-1xomo8h-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
     max-width: 100% !important;

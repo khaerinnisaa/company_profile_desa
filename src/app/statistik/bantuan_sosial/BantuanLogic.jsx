@@ -1,54 +1,39 @@
 import { useAppContext } from "../../../contexts/AppContext";
 import { useEffect, useState } from "react";
+import { fetchDataPublic } from "../../../service/api";
 
 export default function BantuanLogic() {
-  const sampleData = [
-    {
-      id: 1,
-      name: "Dhimas Jaya Kusuma Sarma",
-      nik: "73310829330002",
-      jenis: "PKH",
-      ket: "Sudah proses Kemensos",
-      periode: "15 Agustus 2024",
-    },
-    {
-      id: 2,
-      name: "Dhimas ",
-      nik: "123456789",
-      jenis: "PKH",
-      ket: "Sudah proses Kemensos",
-      periode: "15 Agustus 2024",
-    },
-    {
-      id: 3,
-      name: "Dhimas Jaya Kusuma ",
-      nik: "987654321",
-      jenis: "PKH",
-      ket: "Sudah proses Kemensos",
-      periode: "15 Agustus 2024",
-    },
-  ];
-  const [query, setQuery] = useState(""); // State untuk input pencarian
-  const [filteredData, setFilteredData] = useState([]); // State untuk menyimpan hasil pencarian
-  // Fungsi untuk menangani pencarian
-  const handleSearch = (e) => {
-    const searchQuery = e.target.value.toLowerCase();
-    setQuery(searchQuery);
-
-    // Filter data berdasarkan input
-    const filtered = sampleData.filter((item) =>
-      item.nik.toLowerCase().includes(searchQuery)
-    );
-
-    setFilteredData(filtered); // Update hasil pencarian
-  };
-
   const [open, setOpen] = useState(false); // modal
   const { setLoadingRoute } = useAppContext();
+  const [informasi, setInformasi] = useState([]); // data informasi bantuan sosial
+  const [data, setData] = useState([]); // data penerima bantuan
+  const [nik, setNik] = useState("");
 
   useEffect(() => {
+    getInformasi();
+    if (nik) {
+      getData();
+    }
     setLoadingRoute(false);
-  }, []);
+  }, [nik]);
+
+  // get data informasi bantuan sosial
+  const getInformasi = async () => {
+    fetchDataPublic(`/public/bansos`).then((res) => {
+      setInformasi(res.data);
+    });
+  };
+
+  // get data penerima bantuan
+  const getData = async () => {
+    fetchDataPublic(`public/bansos/${nik}`).then((res) => {
+      setData(res.data);
+    });
+  };
+
+  const handleSearch = (e) => {
+    setNik(e.target.value);
+  };
 
   // open modal
   const handleOpenModal = (id) => {
@@ -67,11 +52,13 @@ export default function BantuanLogic() {
     border: "none",
     boxShadow: 24,
     borderRadius: "10px",
+    overflow: "auto",
+    maxHeight: "412px",
     p: 4,
   };
 
   return {
-    value: { style, open, query, filteredData },
+    value: { style, open, informasi, data, nik },
     func: { handleClose, handleSearch, handleOpenModal },
   };
 }

@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   Card,
   Container,
   FormControl,
@@ -21,15 +22,9 @@ import {
   Toolbar,
 } from "@mui/material";
 import React from "react";
-import ApbLogic from "./apbLogic";
+
 import "./style.css";
 import { Poppins } from "../../../components/typography/Poppins";
-import {
-  belanjaApb,
-  informasiApb,
-  pembiayaanApb,
-  pendapatanApb,
-} from "../../../values/Constant";
 import Footer from "../../../components/footer/Footer";
 import { Title } from "../../../components/typography/Title";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -41,79 +36,106 @@ import BelanjaDesa from "../../../components/apb/belanja/BelanjaDesa";
 import PembiayaanDesa from "../../../components/apb/pembiayaan/PembiayaanDesa";
 import PendapatanDesa from "../../../components/apb/pendapatan_terbaru/PendapatanTerbaru";
 import Pendapatan from "../../../components/apb/pendapatan/Pendapatan";
+import ApbLogic from "./ApbLogic";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 export default function Page() {
   const { value, func } = ApbLogic();
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Apb | {desa}</title>
+        <meta name="description" content="Informmasi Apb Desa Biringkanaya." />
+        <meta name="keywords" content="apb desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Informmasi Apb Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Informmasi Apb Desa Biringkanaya."
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta property="og:url" content="https://godesaku.id/statistik/apb" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container maxWidth="lg">
         {/* informasi apb desa */}
         <Stack mt={2}>
           <Title>Informasi Apb Desa</Title>
-          <FormControl sx={{}}>
-            {value.menu && (
-              <Stack>
-                <Select
-                  sx={{
-                    height: 40,
-                    width: { xs: "100px", md: "265px" },
-                    fontFamily: "Poppins",
-                    borderRadius: "5px",
-                    mt: 2,
-                    fontWeight: 500,
-                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
-                    color: "#0D4581",
-                  }}
-                  // onChange={func.handleCategory}
-                  displayEmpty
-                  // value={value.selectedKabinet}
-                  input={<OutlinedInput />}
-                  renderValue={(selected) => {
-                    if (selected === undefined) {
-                      return <em>2024</em>;
-                    }
-                    return selected;
-                  }}
-                  MenuProps={MenuProps}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  {value.menu.map((res) => {
+          {/* dropdown tahun */}
+          {value.tahun && (
+            <Stack ref={value.dropdownRef} sx={{ width: "150px" }}>
+              {/* Dropdown Button */}
+              <Button
+                onClick={func.onClickDropdown}
+                sx={{
+                  mt: 2,
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  padding: "10px",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  width: "150px",
+                  justifyContent: "start",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <Poppins sx={{ display: "flex" }}>
+                  {value.dropdown === true ? (
+                    <ArrowDropUpIcon />
+                  ) : (
+                    <ArrowDropDownIcon />
+                  )}
+                  {value.selectedTahun || "Pilih Tahun"}
+                </Poppins>
+              </Button>
 
-                    return (
-                      <MenuItem
-                        key={res.id}
-                        sx={{
-                          fontFamily: "Poppins",
-                          backgroundColor: "#fff",
-                          "&:hover": {
-                            backgroundColor: "#0D4581",
-                            color: '#fff'
-                          },
-                        }}
-                        value={res.value}
-                      >
-                        {res.value}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </Stack>
-            )}
-          </FormControl>
+              {/* Dropdown Menu */}
+              {value.dropdown && (
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "#fff",
+                    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+                    zIndex: 1,
+                    marginTop: "65px",
+                    borderRadius: "5px",
+                    minWidth: "150px",
+                  }}
+                >
+                  {value.tahun.map((res) => (
+                    <Poppins
+                      key={res.id}
+                      onClick={() => func.handleTahun(res.year)}
+                      sx={{
+                        padding: "10px 15px",
+                        cursor: "pointer",
+                        color:
+                          value.selectedTahun === res.year ? "#fff" : "#000",
+                        backgroundColor:
+                          value.selectedTahun === res.year ? "#0D4581" : "#fff",
+                        "&:hover": {
+                          backgroundColor: "#0D4581",
+                          color: "#fff",
+                        },
+                      }}
+                    >
+                      {res.year}
+                    </Poppins>
+                  ))}
+                </div>
+              )}
+            </Stack>
+          )}
+
           <Grid2 container spacing={2} mt={4}>
-            {informasiApb.map((res) => {
+            {value.informasi.map((res) => {
               return (
                 <Grid2 size={{ xs: 12, md: 4 }} key={res.id}>
                   <Card
@@ -128,7 +150,7 @@ export default function Page() {
                     <Stack>
                       <img
                         style={{ width: "80px", height: "80px" }}
-                        src={res.image}
+                        src={res.icon}
                         alt={res.title}
                       />
                     </Stack>
@@ -152,31 +174,34 @@ export default function Page() {
             })}
           </Grid2>
         </Stack>
-        {/* pendapatan desa 2020-2024 */}
+        {/* pendapatan desa 5 tahun terakhir */}
         <Stack mt={4}>
-          <Title>Pendapatan dan belanja desa 2020-2024</Title>
+          <Title>{value.pendapatanBelanja.title}</Title>
           <Pendapatan />
         </Stack>
         {/* Pendapatan desa 2024 */}
         <Stack mt={4}>
-          <Title>Pendapatan desa 2024</Title>
+          <Title>{value.pendapatan.title}</Title>
           {/* chart pendapatan */}
-          <PendapatanDesa />
+          <PendapatanDesa
+            category={value.pendapatan.data.map((item) => item.name)}
+            total={value.pendapatan.data.map((item) => item.total)}
+          />
           {/* accordion / detail pendapatan */}
           {/* accordion */}
           <Stack sx={{ mt: 4 }}>
-            {pendapatanApb.map((res) => {
+            {value.pendapatan.accordion.map((res) => {
               return (
                 <Accordion
                   key={res.id}
-                  expanded={!!value.expandedPanels[res.id]}
+                  expanded={!!value.expandedPanelsPendapatan[res.id]}
                   onChange={func.handleChange(res.id)}
                 >
                   <AccordionSummary
                     expandIcon={
                       <ArrowDropDownIcon
                         sx={{
-                          color: value.expandedPanels[res.id]
+                          color: value.expandedPanelsPendapatan[res.id]
                             ? "white"
                             : "black",
                         }}
@@ -249,23 +274,26 @@ export default function Page() {
         </Stack>
         {/* belanja desa  */}
         <Stack mt={4}>
-          <Title>Belanja desa 2024</Title>
+          <Title>{value.belanja.title}</Title>
           {/* chart belanja */}
-          <BelanjaDesa />
+          <BelanjaDesa
+            category={value.belanja.chart.map((res) => res.name)}
+            total={value.belanja.chart.map((res) => res.total)}
+          />
           {/* accordion belanja desa */}
           <Stack sx={{ mt: 4 }}>
-            {belanjaApb.map((res) => {
+            {value.belanja.accordion.map((res) => {
               return (
                 <Accordion
                   key={res.id}
-                  expanded={!!value.expandedPanels[res.id]}
-                  onChange={func.handleChange(res.id)}
+                  expanded={!!value.expandedPanelsBelanja[res.id]}
+                  onChange={func.handleChangeBelanja(res.id)}
                 >
                   <AccordionSummary
                     expandIcon={
                       <ArrowDropDownIcon
                         sx={{
-                          color: value.expandedPanels[res.id]
+                          color: value.expandedPanelsBelanja[res.id]
                             ? "white"
                             : "black",
                         }}
@@ -273,7 +301,7 @@ export default function Page() {
                     }
                     aria-controls="panel2-content"
                     id="panel2-header"
-                    style={func.handleAccordionToggle(res.id)}
+                    style={func.handleAccordionToggleBelanja(res.id)}
                   >
                     <Stack
                       sx={{
@@ -336,23 +364,26 @@ export default function Page() {
         </Stack>
         {/* Pembiayaan desa  */}
         <Stack mt={4}>
-          <Title>Pembiayaan desa 2024</Title>
+          <Title>{value.pembiayaan.title}</Title>
           {/* chart belanja */}
-          <PembiayaanDesa />
+          <PembiayaanDesa
+            category={value.pembiayaan.chart.map((res) => res.name)}
+            data={value.pembiayaan.chart.map((res) => res.total)}
+          />
           {/* accordion pembiayaan desa */}
           <Stack sx={{ mt: 4 }}>
-            {pembiayaanApb.map((res) => {
+            {value.pembiayaan.accordion.map((res) => {
               return (
                 <Accordion
                   key={res.id}
-                  expanded={!!value.expandedPanels[res.id]}
-                  onChange={func.handleChange(res.id)}
+                  expanded={!!value.expandedPanelsPembiayaan[res.id]}
+                  onChange={func.handleChangePembiayaan(res.id)}
                 >
                   <AccordionSummary
                     expandIcon={
                       <ArrowDropDownIcon
                         sx={{
-                          color: value.expandedPanels[res.id]
+                          color: value.expandedPanelsPembiayaan[res.id]
                             ? "white"
                             : "black",
                         }}
@@ -360,7 +391,7 @@ export default function Page() {
                     }
                     aria-controls="panel2-content"
                     id="panel2-header"
-                    style={func.handleAccordionToggle(res.id)}
+                    style={func.handleAccordionTogglePembiayaan(res.id)}
                   >
                     <Stack
                       sx={{
@@ -424,6 +455,6 @@ export default function Page() {
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

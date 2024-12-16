@@ -23,11 +23,32 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Title } from "../../components/typography/Title";
 import ProdukLogic from "./ProdukLogic";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useAppContext } from "../../contexts/AppContext";
 
 export default function Page() {
   const { value, func } = ProdukLogic();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Produk | {desa}</title>
+        <meta
+          name="description"
+          content="Produk desa adalah produk yang dihasilkan dari potensi lokal yang khas, meliputi hasil pertanian, kerajinan tangan, dan produk olahan tradisional. Produk ini mencerminkan budaya dan kearifan lokal, serta didukung oleh sumber daya alam yang melimpah di wilayah pedesaan."
+        />
+        <meta name="keywords" content="produk desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Produk Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Produk desa adalah produk yang dihasilkan dari potensi lokal yang khas, meliputi hasil pertanian, kerajinan tangan, dan produk olahan tradisional. Produk ini mencerminkan budaya dan kearifan lokal, serta didukung oleh sumber daya alam yang melimpah di wilayah pedesaan"
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta property="og:url" content="https://godesaku.id/produk" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* Produk Desa */}
@@ -143,6 +164,6 @@ export default function Page() {
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

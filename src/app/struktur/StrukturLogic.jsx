@@ -33,8 +33,6 @@ export default function StrukturLogic() {
     }
   };
 
-  console.log({ pemerintah });
-
   return {
     value: { pemerintah, organisasi },
     func: {},

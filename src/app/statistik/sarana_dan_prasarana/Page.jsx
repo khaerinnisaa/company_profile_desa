@@ -14,16 +14,49 @@ import {
   TableRow,
   Toolbar,
 } from "@mui/material";
-import { StyledTableCell, StyledTableRow } from "../../../components/tabel/Tabel";
+import {
+  StyledTableCell,
+  StyledTableRow,
+} from "../../../components/tabel/Tabel";
 import React from "react";
 import Footer from "../../../components/footer/Footer";
 import { Title } from "../../../components/typography/Title";
 import SaranaLogic from "./SaranaLogic";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
   const { value } = SaranaLogic();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Sarana dan Prasarana | {desa}</title>
+        <meta
+          name="description"
+          content="Informasi Sarana dan Prasana Desa Biringkanaya"
+        />
+        <meta
+          name="keywords"
+          content="sarana dan prasarana desa biringkanaya"
+        />
+        {/* Open Graph Metadata */}
+        <meta
+          property="og:title"
+          content="Sarana dan Prasarana Desa Biringkanaya"
+        />
+        <meta
+          property="og:description"
+          content="Informasi Sarana dan Prasana Desa Biringkanaya"
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta
+          property="og:url"
+          content="https://godesaku.id/statistik/sarana_dan_prasarana"
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       <Container maxWidth="lg">
@@ -123,6 +156,6 @@ export default function Page() {
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

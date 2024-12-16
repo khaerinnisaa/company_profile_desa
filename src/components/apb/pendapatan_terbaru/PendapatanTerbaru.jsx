@@ -4,20 +4,19 @@ import React from "react";
 import { Box, Stack } from "@mui/material";
 import { Poppins } from "../../../components/typography/Poppins";
 import CircleIcon from "@mui/icons-material/Circle";
+import ApbLogic from "../../../app/statistik/apb/ApbLogic";
 
 // Dynamically import ApexCharts to avoid SSR issues
 // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function PendapatanTerbaru() {
-  const data = [
-    { id: 1, name: "Pendapatan asli desa", total: 180000000 },
-    { id: 2, name: "Transfer", total: 1200000000 },
-    { id: 3, name: "Pendapatan lain", total: 72000000 },
-  ];
+export default function PendapatanTerbaru({ category, total }) {
+  const { value } = ApbLogic();
+  // const data = [
+  //   { id: 1, name: "Pendapatan asli desa", total: 180000000 },
+  //   { id: 2, name: "Transfer", total: 1200000000 },
+  //   { id: 3, name: "Pendapatan lain", total: 72000000 },
+  // ];
 
-  // Map data to extract categories and series data
-  const category = data.map((item) => item.name);
-  const total = data.map((item) => item.total);
 
   const options = {
     chart: {
@@ -79,13 +78,14 @@ export default function PendapatanTerbaru() {
     },
     responsive: [
       {
-        breakpoint: 480, // Batas breakpoint untuk layar kecil
+        breakpoint: 900, // Batas breakpoint untuk layar kecil
         options: {
           chart: {
             height: 300, // Ubah tinggi chart pada mobile
           },
           xaxis: {
             labels: {
+              // show: false,
               rotate: 0, // Memutar label agar tidak tumpang tindih
               rotateAlways: false,
               minHeight: 10, // Memberikan ruang lebih untuk label yang diputar
@@ -94,7 +94,7 @@ export default function PendapatanTerbaru() {
               },
               formatter: function (value) {
                 return value.length > 1 ? value.slice(0, 10) + "..." : value;
-              },
+              }, // Potong label jika terlalu panjang
             },
           },
           yaxis: {
@@ -105,9 +105,6 @@ export default function PendapatanTerbaru() {
                 fontFamily: "Poppins",
                 fontSize: "14px",
               },
-              formatter: function (value) {
-                return value.length > 10 ? value.slice(0, 11) + "..." : value;
-              }, // Potong label jika terlalu panjang
             },
           },
           tooltip: {
@@ -119,7 +116,9 @@ export default function PendapatanTerbaru() {
               show: true,
               format: "dd MMM",
               formatter: function (value) {
-                return value.length > 100 ? value.slice(0, 1000) + "..." : value;
+                return value.length > 100
+                  ? value.slice(0, 1000) + "..."
+                  : value;
               },
             },
           },
@@ -145,7 +144,12 @@ export default function PendapatanTerbaru() {
         borderTopLeftRadius: "10px",
       }}
     >
-      <ReactApexChart options={options} series={series} type="bar" height={300} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="bar"
+        height={300}
+      />
       <Stack
         sx={{
           display: "flex",

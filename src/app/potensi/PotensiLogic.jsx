@@ -15,7 +15,6 @@ export default function PotensiLogic() {
   const [totalPage, setTotalPage] = useState();
   const [totalItem, setTotalItem] = useState();
 
-  console.log({ data });
   useEffect(() => {
     dataPotensi();
     getPertanian();
@@ -51,7 +50,6 @@ export default function PotensiLogic() {
       console.log(error);
     } finally {
     }
-    
   };
 
   // get data pertanian desa (tabel)
@@ -64,7 +62,6 @@ export default function PotensiLogic() {
       console.log(error);
     } finally {
     }
-    
   };
 
   // get data sarana dan prasarana
@@ -77,7 +74,6 @@ export default function PotensiLogic() {
       console.log(error);
     } finally {
     }
-    
   };
 
   // handle page

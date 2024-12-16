@@ -9,10 +9,10 @@ import { TroubleshootOutlined } from "@mui/icons-material";
 // Dynamically import ApexCharts to avoid SSR issues
 // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function BelanjaDesa() {
+export default function BelanjaDesa({category,total}) {
   // Data belanja desa
   const data = [
-    { id: 1, name: "Penyelenggaraan pemerintah desa", total: 1200000 },
+    { id: 1, name: "Penyelenggaraan pemerintah desa", total: 12000000 },
     { id: 2, name: "Pembangunan desa", total: 102345 },
     { id: 3, name: "Pembinaan kemasyarakatan", total: 1234 },
     { id: 4, name: "Pemberdayaan masyarakat", total: 123 },
@@ -23,8 +23,8 @@ export default function BelanjaDesa() {
     },
   ];
 
-  const labels = data.map((res) => res.name);
-  const total = data.map((res) => res.total);
+  // const labels = data.map((res) => res.name);
+  // const total = data.map((res) => res.total);
   const series = [
     {
       name: "jumlah",
@@ -56,7 +56,7 @@ export default function BelanjaDesa() {
       },
     },
     xaxis: {
-      categories: labels, // Sumbu Y untuk kategori belanja
+      categories: category, // Sumbu Y untuk kategori belanja
       labels: {
         style: {
           colors: "#fff", // Label warna putih
@@ -115,7 +115,7 @@ export default function BelanjaDesa() {
             labels: {
               rotate: -45, // Memutar label agar tidak tumpang tindih
               rotateAlways: true,
-              minHeight: 60, // Memberikan ruang lebih untuk label yang diputar
+              minHeight: 80, // Memberikan ruang lebih untuk label yang diputar
               style: {
                 fontSize: "10px", // Ukuran font lebih kecil pada layar mobile
               },
@@ -170,7 +170,12 @@ export default function BelanjaDesa() {
         borderTopLeftRadius: "10px",
       }}
     >
-      <ReactApexChart options={options} series={series} type="bar" height={300} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="bar"
+        height={300}
+      />
       <Stack
         sx={{
           display: "flex",

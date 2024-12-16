@@ -11,14 +11,12 @@ import {
   TableBody,
   TableContainer,
   TableHead,
-  TableRow,
   Toolbar,
 } from "@mui/material";
 import React from "react";
 import Icon from "../../../assets/icon_header_idm.png";
 import { Poppins } from "../../../components/typography/Poppins";
 import Footer from "../../../components/footer/Footer";
-import { idm, iks, statusIdm } from "../../../values/Constant";
 import {
   StyledTableCell,
   StyledTableRow,
@@ -26,10 +24,33 @@ import {
 import "./style.css";
 import { Title } from "../../../components/typography/Title";
 import SkorIdm from "../../../components/idm/skor_idm/SkorIdm";
+import IdmLogic from "./IdmLogic";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
+  const { value } = IdmLogic();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Idm | {desa}</title>
+        <meta name="description" content="Indeks Desa Membangun (IDM) adalah alat pengukuran yang digunakan oleh pemerintah Indonesia untuk menilai tingkat kemajuan pembangunan desa berdasarkan tiga dimensi utama: ketahanan sosial, ketahanan ekonomi, dan ketahanan lingkungan." />
+        <meta name="keywords" content="idm desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Idm Desa Biringkanaya" />
+        <meta
+          property="og:description"
+          content="Indeks Desa Membangun (IDM) adalah alat pengukuran yang digunakan oleh pemerintah Indonesia untuk menilai tingkat kemajuan pembangunan desa berdasarkan tiga dimensi utama: ketahanan sosial, ketahanan ekonomi, dan ketahanan lingkungan."
+        />
+        <meta
+          property="og:image"
+          content="https://godesaku.id/logo.png"
+        />
+        <meta property="og:url" content="https://godesaku.id/statistik/idm" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* idm */}
@@ -44,68 +65,70 @@ export default function Page() {
       <Container maxWidth="lg">
         {/* status & skor idm */}
         <Grid2 container spacing={2} sx={{ mt: 8 }}>
-          {statusIdm.map((res) => {
-            return (
-              <Grid2 size={{ xs: 12, md: 6 }} key={res.id}>
-                <Card
-                  sx={{
-                    width: { xs: "100%" },
-                    display: "flex",
-                    px: 4,
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
-                  }}
-                >
-                  <img
-                    style={{
-                      width: "90px",
-                      height: "90px",
-                    }}
-                    src={res.image}
-                    alt="status"
-                  />
-                  <Stack sx={{ alignSelf: "center" }}>
-                    <Poppins>{res.title}</Poppins>
-                    <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
-                      {res.ket}
-                    </Poppins>
-                  </Stack>
-                </Card>
-              </Grid2>
-            );
-          })}
-        </Grid2>
-        {/* Informasi IDM */}
-        <Stack sx={{ mt: 6 }}>
-          <Title>Informasi IDM</Title>
-          <Grid2 container spacing={2} sx={{ mt: 4 }}>
-            {idm.map((res) => {
+          {value.statusSkor &&
+            value.statusSkor.map((res) => {
               return (
-                <Grid2 size={{ xs: 12, md: 4 }} key={res.id}>
+                <Grid2 size={{ xs: 12, md: 6 }} key={res.id}>
                   <Card
                     sx={{
                       width: { xs: "100%" },
                       display: "flex",
-                      px: 3,
+                      px: 4,
                       borderRadius: "10px",
                       boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
                     }}
                   >
                     <img
-                      style={{ width: "90px" }}
-                      src={res.image}
-                      alt="status"
+                      style={{
+                        width: "90px",
+                        height: "90px",
+                      }}
+                      src={res.icon}
+                      alt={res.title}
                     />
                     <Stack sx={{ alignSelf: "center" }}>
                       <Poppins>{res.title}</Poppins>
                       <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
-                        {res.total}
+                        {res.value}
                       </Poppins>
                     </Stack>
                   </Card>
                 </Grid2>
               );
             })}
+        </Grid2>
+        {/* Informasi IDM */}
+        <Stack sx={{ mt: 6 }}>
+          <Title>Informasi IDM</Title>
+          <Grid2 container spacing={2} sx={{ mt: 4 }}>
+            {value.informasi &&
+              value.informasi.map((res) => {
+                return (
+                  <Grid2 size={{ xs: 12, md: 4 }} key={res.id}>
+                    <Card
+                      sx={{
+                        width: { xs: "100%" },
+                        display: "flex",
+                        px: 3,
+                        borderRadius: "10px",
+                        boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.3)",
+                      }}
+                    >
+                      <img
+                        style={{ width: "90px" }}
+                        src={res.icon}
+                        alt={res.title}
+                      />
+                      <Stack sx={{ alignSelf: "center" }}>
+                        <Poppins>{res.title}</Poppins>
+                        <Poppins sx={{ color: "#0D4581", fontWeight: 500 }}>
+                          {res.value}
+                        </Poppins>
+                      </Stack>
+                    </Card>
+                  </Grid2>
+                );
+              })}
           </Grid2>
         </Stack>
         {/* Skor IDM Pertahun */}
@@ -251,24 +274,30 @@ export default function Page() {
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {iks.map((res) => {
-                  return (
-                    <StyledTableRow key={res.id}>
-                      <StyledTableCell>{res.id}</StyledTableCell>
-                      <StyledTableCell>{res.indikator}</StyledTableCell>
-                      <StyledTableCell>{res.skor}</StyledTableCell>
-                      <StyledTableCell>{res.keterangan}</StyledTableCell>
-                      <StyledTableCell>{res.kegiatan}</StyledTableCell>
-                      <StyledTableCell>{res.nilai}</StyledTableCell>
-                      <StyledTableCell>{res.pusat}</StyledTableCell>
-                      <StyledTableCell>{res.provinsi}</StyledTableCell>
-                      <StyledTableCell>{res.kab}</StyledTableCell>
-                      <StyledTableCell>{res.desa}</StyledTableCell>
-                      <StyledTableCell>{res.csr}</StyledTableCell>
-                      <StyledTableCell>{res.lainnya}</StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                {value.ikl.data.length !== 0 ? (
+                  value.ikl.data.map((res) => {
+                    return (
+                      <StyledTableRow key={res.id}>
+                        <StyledTableCell>{res.id}</StyledTableCell>
+                        <StyledTableCell>{res.indikator}</StyledTableCell>
+                        <StyledTableCell>{res.skor}</StyledTableCell>
+                        <StyledTableCell>{res.keterangan}</StyledTableCell>
+                        <StyledTableCell>{res.kegiatan}</StyledTableCell>
+                        <StyledTableCell>{res.nilai}</StyledTableCell>
+                        <StyledTableCell>{res.pusat}</StyledTableCell>
+                        <StyledTableCell>{res.provinsi}</StyledTableCell>
+                        <StyledTableCell>{res.kab}</StyledTableCell>
+                        <StyledTableCell>{res.desa}</StyledTableCell>
+                        <StyledTableCell>{res.csr}</StyledTableCell>
+                        <StyledTableCell>{res.lainnya}</StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell>-</StyledTableCell>
+                  </StyledTableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -397,24 +426,30 @@ export default function Page() {
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {iks.map((res) => {
-                  return (
-                    <StyledTableRow key={res.id}>
-                      <StyledTableCell>{res.id}</StyledTableCell>
-                      <StyledTableCell>{res.indikator}</StyledTableCell>
-                      <StyledTableCell>{res.skor}</StyledTableCell>
-                      <StyledTableCell>{res.keterangan}</StyledTableCell>
-                      <StyledTableCell>{res.kegiatan}</StyledTableCell>
-                      <StyledTableCell>{res.nilai}</StyledTableCell>
-                      <StyledTableCell>{res.pusat}</StyledTableCell>
-                      <StyledTableCell>{res.provinsi}</StyledTableCell>
-                      <StyledTableCell>{res.kab}</StyledTableCell>
-                      <StyledTableCell>{res.desa}</StyledTableCell>
-                      <StyledTableCell>{res.csr}</StyledTableCell>
-                      <StyledTableCell>{res.lainnya}</StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                {value.iks.data.length !== 0 ? (
+                  value.iks.data.map((res) => {
+                    return (
+                      <StyledTableRow key={res.id}>
+                        <StyledTableCell>{res.id}</StyledTableCell>
+                        <StyledTableCell>{res.indikator}</StyledTableCell>
+                        <StyledTableCell>{res.skor}</StyledTableCell>
+                        <StyledTableCell>{res.keterangan}</StyledTableCell>
+                        <StyledTableCell>{res.kegiatan}</StyledTableCell>
+                        <StyledTableCell>{res.nilai}</StyledTableCell>
+                        <StyledTableCell>{res.pusat}</StyledTableCell>
+                        <StyledTableCell>{res.provinsi}</StyledTableCell>
+                        <StyledTableCell>{res.kab}</StyledTableCell>
+                        <StyledTableCell>{res.desa}</StyledTableCell>
+                        <StyledTableCell>{res.csr}</StyledTableCell>
+                        <StyledTableCell>{res.lainnya}</StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell>-</StyledTableCell>
+                  </StyledTableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -543,24 +578,30 @@ export default function Page() {
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {iks.map((res) => {
-                  return (
-                    <StyledTableRow key={res.id}>
-                      <StyledTableCell>{res.id}</StyledTableCell>
-                      <StyledTableCell>{res.indikator}</StyledTableCell>
-                      <StyledTableCell>{res.skor}</StyledTableCell>
-                      <StyledTableCell>{res.keterangan}</StyledTableCell>
-                      <StyledTableCell>{res.kegiatan}</StyledTableCell>
-                      <StyledTableCell>{res.nilai}</StyledTableCell>
-                      <StyledTableCell>{res.pusat}</StyledTableCell>
-                      <StyledTableCell>{res.provinsi}</StyledTableCell>
-                      <StyledTableCell>{res.kab}</StyledTableCell>
-                      <StyledTableCell>{res.desa}</StyledTableCell>
-                      <StyledTableCell>{res.csr}</StyledTableCell>
-                      <StyledTableCell>{res.lainnya}</StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                {value.ike.data !== 0 ? (
+                  value.ike.data.map((res) => {
+                    return (
+                      <StyledTableRow key={res.id}>
+                        <StyledTableCell>{res.id}</StyledTableCell>
+                        <StyledTableCell>{res.indikator}</StyledTableCell>
+                        <StyledTableCell>{res.skor}</StyledTableCell>
+                        <StyledTableCell>{res.keterangan}</StyledTableCell>
+                        <StyledTableCell>{res.kegiatan}</StyledTableCell>
+                        <StyledTableCell>{res.nilai}</StyledTableCell>
+                        <StyledTableCell>{res.pusat}</StyledTableCell>
+                        <StyledTableCell>{res.provinsi}</StyledTableCell>
+                        <StyledTableCell>{res.kab}</StyledTableCell>
+                        <StyledTableCell>{res.desa}</StyledTableCell>
+                        <StyledTableCell>{res.csr}</StyledTableCell>
+                        <StyledTableCell>{res.lainnya}</StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell>-</StyledTableCell>
+                  </StyledTableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -577,18 +618,18 @@ export default function Page() {
           }}
         >
           <Poppins sx={{ fontWeight: 600, color: "#FFFFFF" }}>
-            IKL 2023 = 0.1223
+            {`${value.keterangan.ikl.title} = ${value.keterangan.ikl.value}`}
           </Poppins>
           <Poppins sx={{ fontWeight: 600, color: "#FFFFFF" }}>
-            IDM 2023 = 0.1223
+            {`${value.keterangan.idm.title} = ${value.keterangan.idm.value}`}
           </Poppins>
           <Poppins sx={{ fontWeight: 600, color: "#FFFFFF" }}>
-            Status IDM 2023 = Maju
+            {`${value.keterangan.statusIdm.title} = ${value.keterangan.statusIdm.value}`}
           </Poppins>
         </Stack>
       </Container>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

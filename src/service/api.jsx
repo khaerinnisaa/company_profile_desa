@@ -1,6 +1,5 @@
 import axios from "axios";
-// const baseUrl = "http://be-godesaku.4mmar.cloud/api";
-const baseUrl = "https://www.ammar.genbiuinam.org/api";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const apipublic = axios.create({
   baseURL: baseUrl,

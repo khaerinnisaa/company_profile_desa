@@ -4,11 +4,13 @@ import React from "react";
 import { Box, Stack } from "@mui/material";
 import { Poppins } from "../../../components/typography/Poppins";
 import CircleIcon from "@mui/icons-material/Circle";
+import IdmLogic from "../../../app/statistik/idm/IdmLogic";
 
 // Dynamically import ApexCharts to avoid SSR issues
 // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function SkorIdm() {
+  const { value } = IdmLogic();
   const data = [
     { id: 1, year: 2020, value: 16 },
     { id: 2, year: 2021, value: 46 },
@@ -18,8 +20,8 @@ export default function SkorIdm() {
   ];
 
   // Map data to extract categories and series data
-  const category = data.map((item) => item.year);
-  const total = data.map((item) => item.value);
+  const category = value.idmPertahun.map((item) => item.year);
+  const total = value.idmPertahun.map((item) => item.value);
 
   const options = {
     chart: {
@@ -97,7 +99,12 @@ export default function SkorIdm() {
         borderTopLeftRadius: "10px",
       }}
     >
-      <ReactApexChart options={options} series={series} type="bar" height={300} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="bar"
+        height={300}
+      />
       <Stack
         sx={{
           display: "flex",

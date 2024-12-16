@@ -27,11 +27,26 @@ import { Title } from "../../components/typography/Title";
 import { themePagination } from "../../components/pagination/Pagination";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useAppContext } from "../../contexts/AppContext";
 
 export default function Page() {
   const { value, func } = PotensiLogic();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Potensi | {desa}</title>
+        <meta name="description" content="Potensi Desa biringkanaya Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia." />
+        <meta name="keywords" content="potensi desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Potensi Desa Biringkanaya" />
+        <meta property="og:description" content="Menggambarkan berbagai aspek penting dari sebuah desa, seperti jumlah penduduk, luas wilayah, tingkat pendidikan, sektor ekonomi utama, serta infrastruktur yang tersedia." />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta property="og:url" content="https://godesaku.id/potensi" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* potensi desa */}
@@ -306,6 +321,6 @@ export default function Page() {
       </Stack>
       {/* footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }

@@ -28,11 +28,32 @@ import {
 import Footer from "../../../components/footer/Footer";
 import "./style.css";
 import { Title } from "../../../components/typography/Title";
+import { useAppContext } from "../../../contexts/AppContext";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 export default function Page() {
   const { value, func } = RumahIbadah();
+  const { desa } = useAppContext();
   return (
-    <Box>
+    <HelmetProvider>
+      {/* metadata */}
+      <Helmet>
+        <title>Rumah Ibadah | {desa}</title>
+        <meta name="description" content="Rumah Ibadah Desa BiringKanaya" />
+        <meta name="keywords" content="rumah ibadah desa biringkanaya" />
+        {/* Open Graph Metadata */}
+        <meta property="og:title" content="Rumah Ibadah Desa BiringKanaya" />
+        <meta
+          property="og:description"
+          content="Informasi Tempat Ibadah Desa BiringKanaya"
+        />
+        <meta property="og:image" content="https://godesaku.id/logo.png" />
+        <meta
+          property="og:url"
+          content="https://godesaku.id/statistik/rumah_ibadah"
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <Toolbar />
       {/* Informasi Tempat Ibadah */}
@@ -143,6 +164,6 @@ export default function Page() {
       </Container>
       {/* Footer */}
       <Footer />
-    </Box>
+    </HelmetProvider>
   );
 }
